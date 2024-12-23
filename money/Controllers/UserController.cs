@@ -21,9 +21,13 @@ namespace money.Controllers
         ///     }
         ///
         /// </remarks>
+        /// <returns>
+        ///     created user
+        /// </returns>
         /// <response code="201">Returns the newly created user</response>
         /// <response code="400">If the user is missing atributes</response>
         [HttpPost(Name = "create user")]
+        [ProducesResponseType(201, Type = typeof(CreateUserDto))]
         public IActionResult CreateUser([FromBody] CreateUserDto User) {
             if (!ModelState.IsValid)
             {
