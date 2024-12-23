@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using money.Dto;
 
 namespace money.Controllers
@@ -28,10 +29,11 @@ namespace money.Controllers
         /// <response code="400">If the user is missing atributes</response>
         [HttpPost(Name = "create user")]
         [ProducesResponseType(201, Type = typeof(CreateUserDto))]
-        public IActionResult CreateUser([FromBody] CreateUserDto User) {
+        [ProducesResponseType(400, Type = typeof(ValidationErrorDto))]
+        public IActionResult CreateUser([FromBody] CreateUserDto User) { 
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
+            {   
+                return BadRequest(ValidationErrorDto.Gen(ModelState));
             }
 
             return new JsonResult(User) { StatusCode = 201 };
