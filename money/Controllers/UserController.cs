@@ -7,10 +7,10 @@ namespace money.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController: Controller
+    public class UserController(UserService userService) : Controller
     {
-        private readonly UserService _userService;
-        public UserController(UserService userService) { _userService = userService; }
+        private readonly UserService _userService = userService;
+
         /// <summary>
         /// Create User 
         /// </summary>
