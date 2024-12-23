@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using money.Dto;
+using money.Dtos;
+using money.Services;
 
 namespace money.Controllers
 {
@@ -8,6 +9,8 @@ namespace money.Controllers
     [Route("[controller]")]
     public class UserController: Controller
     {
+        private readonly UserService _userService;
+        public UserController(UserService userService) { _userService = userService; }
         /// <summary>
         /// Create User 
         /// </summary>
@@ -28,15 +31,14 @@ namespace money.Controllers
         /// <response code="201">Returns the newly created user</response>
         /// <response code="400">If the user is missing atributes</response>
         [HttpPost(Name = "create user")]
-        [ProducesResponseType(201, Type = typeof(CreateUserDto))]
+        [ProducesResponseType(201, Type = typeof(UserResponseDto))]
         [ProducesResponseType(400, Type = typeof(ValidationErrorDto))]
-        public IActionResult CreateUser([FromBody] CreateUserDto User) { 
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto) { 
             if (!ModelState.IsValid)
             {   
                 return BadRequest(ValidationErrorDto.Gen(ModelState));
             }
-
-            return new JsonResult(User) { StatusCode = 201 };
+            return new JsonResult(await _userService.create(createUserDto)) { StatusCode = 201 };
         }
     }
 }
