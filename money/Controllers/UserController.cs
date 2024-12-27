@@ -33,12 +33,20 @@ namespace money.Controllers
         [HttpPost(Name = "create user")]
         [ProducesResponseType(201, Type = typeof(UserResponseDto))]
         [ProducesResponseType(400, Type = typeof(ValidationErrorDto))]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto) { 
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+        {
             if (!ModelState.IsValid)
-            {   
+            {
                 return BadRequest(ValidationErrorDto.Gen(ModelState));
             }
-            return new JsonResult(await _userService.create(createUserDto)) { StatusCode = 201 };
+            try
+            {
+                return new JsonResult(await _userService.create(createUserDto)) { StatusCode = 201 };
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
         }
     }
 }

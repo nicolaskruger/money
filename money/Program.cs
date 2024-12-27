@@ -1,3 +1,4 @@
+using money.Data;
 using money.Services;
 using System.Reflection;
 
@@ -8,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddDbContext<MoneyDbContext>();
 builder.Services.AddScoped<UserService, UserService>();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
