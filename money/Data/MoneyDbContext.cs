@@ -1,21 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using money.Models;
-
-namespace money.Data
+﻿namespace Money.Data
 {
+    using Microsoft.EntityFrameworkCore;
+    using Money.Models;
+
     public class MoneyDbContext : DbContext
     {
-        private readonly IConfiguration _config;
+        private readonly IConfiguration config;
 
-        public MoneyDbContext(IConfiguration config)
-        {
-            _config = config;
-        }
+        public MoneyDbContext(IConfiguration config) => this.config = config;
+
         public DbSet<User> Users { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(_config["ConnectionString"] ?? "");
+            optionsBuilder.UseSqlServer(this.config["ConnectionString"] ?? string.Empty);
         }
     }
 }

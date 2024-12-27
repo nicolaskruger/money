@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace money.Migrations
+namespace Money.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate00 : Migration

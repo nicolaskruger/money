@@ -1,5 +1,5 @@
-using money.Data;
-using money.Services;
+using Money.Data;
+using Money.Services;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

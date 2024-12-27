@@ -1,33 +1,39 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// <copyright file="CreateUserDto.cs" company="NickInc">
+// Copyright (c) NickInc. All rights reserved.
+// </copyright>
 
-namespace money.Dto
+namespace Money.DTOs
 {
+    using System.ComponentModel.DataAnnotations;
+
     /// <summary>
-    /// create use dto
+    /// create use dto.
     /// </summary>
-    public class CreateUserDto
+    public class CreateUserDTO
     {
         /// <summary>
-        /// name
+        /// Gets or sets name.
         /// </summary>
         /// <example>Nícolas Krüger</example>
         [Required(ErrorMessage = "name required")]
         [Length(5, 100, ErrorMessage = "name to need to be more than 5 or less than 100")]
-        public String Name { get; set; }
+        required public string Name { get; set; }
+
         /// <summary>
-        /// email
+        /// Gets or sets email.
         /// </summary>
         /// <example>sample@email.com</example>
         [Required(ErrorMessage = "email required")]
         [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "not valid email")]
-        public String Email { get; set; }
+        required public string Email { get; set; }
+
         /// <summary>
-        /// password
+        /// Gets or sets password.
         /// </summary>
-        /// <example>password1</example>
+        /// <example>password1.</example>
         [Required(ErrorMessage = "password required")]
         [RegularExpression(@"^(?=.*\d).{8,}$", ErrorMessage = "password must have 8 length and one digit")]
-        public String Password { get; set; }
+        required public string Password { get; set; }
 
     }
 }

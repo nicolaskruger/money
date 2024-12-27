@@ -1,34 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace money.Dto
+﻿
+namespace Money.DTOs
 {
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+
     /// <summary>
-    /// Validation Error
+    /// Validation Error.
     /// </summary>
-    public class ValidationErrorDto
+    public class ValidationErrorDTO
     {
         /// <summary>
-        /// Message
+        /// Gets or sets message.
         /// </summary>
-        /// <example>Validation Error</example>
-        public string Message { get; set; }
+        /// <example>Validation Error.</example>
+        required public string Message { get; set; }
+
         /// <summary>
-        /// Error
+        /// Gets or sets error.
         /// </summary>
         /// <example>
         /// { "key1": ["erro1", "erro2"], "key2": ["erro3", "erro4"] }
         /// </example>
-        public Dictionary<string, string[]> Error { get; set; }
+        required public Dictionary<string, string[]> Error { get; set; }
 
-        public static ValidationErrorDto Gen(ModelStateDictionary model)
+        public static ValidationErrorDTO Gen(ModelStateDictionary model) => new ()
         {
-            return new ValidationErrorDto() { 
-                Message = "Validation Error",
-                Error = model.ToDictionary(
+            Message = "Validation Error",
+            Error = model.ToDictionary(
                     kvp => kvp.Key,
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                )
-            };
-        }
+                ),
+        };
     }
 }

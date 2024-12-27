@@ -1,34 +1,37 @@
-﻿using BCrypt.Net;
-using money.Data;
-using money.Dto;
-using money.Dtos;
-using money.Models;
+﻿// <copyright file="UserService.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace money.Services
+namespace Money.Services
 {
+    using BCrypt.Net;
+    using Money.Data;
+    using Money.DTOs;
+    using Money.Models;
+
     public class UserService
     {
-        private readonly MoneyDbContext _moneyDb;
-        public UserService(MoneyDbContext moneyDb) { _moneyDb = moneyDb; }
-        public async Task<UserResponseDto> create(CreateUserDto createUserDto)
+        private readonly MoneyDbContext moneyDb;
+
+        public UserService(MoneyDbContext moneyDb) { this.moneyDb = moneyDb; }
+
+        public async Task<UserResponseDTO> Create(CreateUserDTO createUserDto)
         {
-            var has = _moneyDb.Users.Where(user => user.Email == createUserDto.Email).Count();
+            var has = this.moneyDb.Users.Where(user => user.Email == createUserDto.Email).Count();
 
             if(has > 0)
             {
                 throw new Exception("Email already in use");
             }
 
-            var user = _moneyDb.Users.Add(new User()
+            var user = this.moneyDb.Users.Add(new User()
             {
                 Name = createUserDto.Name,
                 Email = createUserDto.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(createUserDto.Password),
+                Password = BCrypt.HashPassword(createUserDto.Password),
             });
-            await _moneyDb.SaveChangesAsync();
-            
-
-            return new UserResponseDto()
+            await this.moneyDb.SaveChangesAsync();
+            return new UserResponseDTO()
             {
                 Id = user.Entity.Id,
                 Name = user.Entity.Name,

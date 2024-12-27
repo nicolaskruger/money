@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using money.Data;
+using Money.Data;
 
 #nullable disable
 
-namespace money.Migrations
+namespace Money.Migrations
 {
     [DbContext(typeof(MoneyDbContext))]
     [Migration("20241227104555_InitialCreate00")]

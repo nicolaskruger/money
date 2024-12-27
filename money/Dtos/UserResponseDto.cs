@@ -1,27 +1,30 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// Ignore Spelling: Dto Dtos
 
-namespace money.Dtos
+namespace Money.DTOs
 {
+    using System.ComponentModel.DataAnnotations;
+
     /// <summary>
-    /// User Response Dto
+    /// User Response Dto.
     /// </summary>
-    public class UserResponseDto
+    public class UserResponseDTO
     {
         /// <summary>
-        /// name
+        /// Gets or sets name.
         /// </summary>
         /// <example>Nícolas Krüger</example>
-        public String Name { get; set; }
+        required public string Name { get; set; }
+
         /// <summary>
-        /// email
+        /// Gets or sets email.
         /// </summary>
         /// <example>sample@email.com</example>
-        public String Email { get; set; }
-     
+        required public string Email { get; set; }
+
         /// <summary>
-        /// id
+        /// Gets or sets id.
         /// </summary>
         /// <example>id_hash_123</example>
-        public String Id { get; set; }
+        required public string Id { get; set; }
     }
 }

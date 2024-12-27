@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using money.Dto;
-using money.Dtos;
-using money.Services;
+﻿// <copyright file="UserController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace money.Controllers
+namespace Money.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Money.DTOs;
+    using Money.Services;
+
     [ApiController]
     [Route("[controller]")]
     public class UserController(UserService userService) : Controller
     {
-        private readonly UserService _userService = userService;
+        private readonly UserService userService = userService;
 
         /// <summary>
         /// Create User 
@@ -31,21 +34,22 @@ namespace money.Controllers
         /// <response code="201">Returns the newly created user</response>
         /// <response code="400">If the user is missing attributes</response>
         [HttpPost(Name = "create user")]
-        [ProducesResponseType(201, Type = typeof(UserResponseDto))]
-        [ProducesResponseType(400, Type = typeof(ValidationErrorDto))]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+        [ProducesResponseType(201, Type = typeof(UserResponseDTO))]
+        [ProducesResponseType(400, Type = typeof(ValidationErrorDTO))]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUserDto)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return BadRequest(ValidationErrorDto.Gen(ModelState));
+                return this.BadRequest(ValidationErrorDTO.Gen(this.ModelState));
             }
+
             try
             {
-                return new JsonResult(await _userService.create(createUserDto)) { StatusCode = 201 };
+                return new JsonResult(await this.userService.Create(createUserDto)) { StatusCode = 201 };
             }
             catch (Exception e)
             {
-                return BadRequest(new { message = e.Message });
+                return this.BadRequest(new { message = e.Message });
             }
         }
     }
