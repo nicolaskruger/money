@@ -29,7 +29,7 @@ namespace money.Controllers
         ///     created user
         /// </returns>
         /// <response code="201">Returns the newly created user</response>
-        /// <response code="400">If the user is missing atributes</response>
+        /// <response code="400">If the user is missing attributes</response>
         [HttpPost(Name = "create user")]
         [ProducesResponseType(201, Type = typeof(UserResponseDto))]
         [ProducesResponseType(400, Type = typeof(ValidationErrorDto))]
