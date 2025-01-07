@@ -10,7 +10,7 @@ namespace Money.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class UserController(UserService userService) : Controller
+    public class UserController(UserService userService) : ControllerBase
     {
         private readonly UserService userService = userService;
 
@@ -36,7 +36,7 @@ namespace Money.Controllers
         [HttpPost(Name = "create user")]
         [ProducesResponseType(201, Type = typeof(UserResponseDTO))]
         [ProducesResponseType(400, Type = typeof(ValidationErrorDTO))]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUserDto)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUserDTO)
         {
             if (!this.ModelState.IsValid)
             {
@@ -45,7 +45,7 @@ namespace Money.Controllers
 
             try
             {
-                return new JsonResult(await this.userService.Create(createUserDto)) { StatusCode = 201 };
+                return new JsonResult(await this.userService.Create(createUserDTO)) { StatusCode = 201 };
             }
             catch (Exception e)
             {

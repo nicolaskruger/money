@@ -1,13 +1,9 @@
-﻿// <copyright file="CreateUserDto.cs" company="NickInc">
-// Copyright (c) NickInc. All rights reserved.
-// </copyright>
-
-namespace Money.DTOs
+﻿namespace Money.DTOs
 {
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// create use dto.
+    /// create use DTO.
     /// </summary>
     public class CreateUserDTO
     {
