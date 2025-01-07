@@ -13,22 +13,22 @@ namespace Money.Services
     {
         private readonly MoneyDbContext moneyDb;
 
-        public UserService(MoneyDbContext moneyDb) { this.moneyDb = moneyDb; }
+        public UserService(MoneyDbContext moneyDb) => this.moneyDb = moneyDb;
 
-        public async Task<UserResponseDTO> Create(CreateUserDTO createUserDto)
+        public async Task<UserResponseDTO> Create(CreateUserDTO createUserDTO)
         {
-            var has = this.moneyDb.Users.Where(user => user.Email == createUserDto.Email).Count();
+            var has = this.moneyDb.Users.Where(user => user.Email == createUserDTO.Email).Count();
 
-            if(has > 0)
+            if (has > 0)
             {
                 throw new Exception("Email already in use");
             }
 
             var user = this.moneyDb.Users.Add(new User()
             {
-                Name = createUserDto.Name,
-                Email = createUserDto.Email,
-                Password = BCrypt.HashPassword(createUserDto.Password),
+                Name = createUserDTO.Name,
+                Email = createUserDTO.Email,
+                Password = BCrypt.HashPassword(createUserDTO.Password),
             });
             await this.moneyDb.SaveChangesAsync();
             return new UserResponseDTO()
